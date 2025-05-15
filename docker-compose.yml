@@ -4,7 +4,7 @@ services:
     nginx:
         image: "nginx:stable-alpine"
         ports:
-            - "1000:10"
+            - "1000:80"
         volumes:
             - ./dockerfiles/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
             - ./src:/var/www/laravel
