@@ -2,8 +2,8 @@
 
 namespace App\Orchid\Screens\Examples;
 
+use App\Infrastructure\Models\User;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;

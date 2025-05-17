@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Models;
 
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;

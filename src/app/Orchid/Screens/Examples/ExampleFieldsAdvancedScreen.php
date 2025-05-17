@@ -2,8 +2,8 @@
 
 namespace App\Orchid\Screens\Examples;
 
+use App\Infrastructure\Models\User;
 use App\Orchid\Layouts\Examples\ExampleElements;
-use App\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Fields\Attach;
 use Orchid\Screen\Fields\CheckBox;

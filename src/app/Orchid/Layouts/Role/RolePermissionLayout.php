@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\Role;
 
+use App\Infrastructure\Models\User;
 use Illuminate\Support\Collection;
-use App\Models\User;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Fields\Group;
