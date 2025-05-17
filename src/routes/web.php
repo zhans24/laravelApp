@@ -1,11 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::get('{id}', [ProductController::class, 'show']);
-    Route::post('/', [ProductController::class, 'store']);
-    Route::post('{productId}/reviews', [ProductController::class, 'addReview']);
-});
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/{category}/{product_code}', [ProductController::class, 'showWithReviews']);

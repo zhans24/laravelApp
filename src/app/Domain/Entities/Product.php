@@ -2,17 +2,14 @@
 
 namespace App\Domain\Entities;
 
-namespace App\Domain\Entities;
-
 use App\Domain\ValueObjects\ProductCode;
 use App\Domain\ValueObjects\Price;
 
 class Product
 {
-    private array $reviews = [];
+    private int $id;
 
     public function __construct(
-        private int $id,
         private ProductCode $code,
         private string $name,
         private ?string $description,
@@ -65,14 +62,5 @@ class Product
     public function getCategoryId(): int
     {
         return $this->categoryId;
-    }
-
-    public function addReview(Review $review): void
-    {
-        $this->reviews[] = $review;
-    }
-    public function getReviews(): array
-    {
-        return $this->reviews;
     }
 }

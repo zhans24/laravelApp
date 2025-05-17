@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('rating'); // 1–5
             $table->timestamps();
         });
-
     }
 
     /**

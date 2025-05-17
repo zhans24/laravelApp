@@ -8,25 +8,14 @@ class Review
 {
     private int $id;
     private int $productId;
-    private string $userName;
-    private string $text;
-    private Rating $rating;
 
     public function __construct(
-        int $productId,
-        string $userName,
-        string $text,
-        Rating $rating
+        private Rating $rating,
+        private string $text,
+        private string $userName,
+        int $productId
     ) {
         $this->productId = $productId;
-        $this->userName = $userName;
-        $this->text = $text;
-        $this->rating = $rating;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function setId(int $id): void
@@ -34,14 +23,14 @@ class Review
         $this->id = $id;
     }
 
-    public function getProductId(): int
+    public function getId(): int
     {
-        return $this->productId;
+        return $this->id;
     }
 
-    public function getUserName(): string
+    public function getRating(): Rating
     {
-        return $this->userName;
+        return $this->rating;
     }
 
     public function getText(): string
@@ -49,8 +38,13 @@ class Review
         return $this->text;
     }
 
-    public function getRating(): Rating
+    public function getUserName(): string
     {
-        return $this->rating;
+        return $this->userName;
+    }
+
+    public function getProductId(): int
+    {
+        return $this->productId;
     }
 }

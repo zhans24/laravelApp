@@ -4,21 +4,23 @@ namespace App\Domain\Services;
 
 use App\Domain\Entities\Product;
 use App\Domain\Entities\Review;
-use InvalidArgumentException;
 
 class ProductDomainService
 {
-    public function validateReview(Review $review,Product $product): void
+    public function validateDiscount(Product $product): void
     {
-        if ($review->getProductId() !== $product->getId()){
-            throw new InvalidArgumentException("Review does not belong to this product");
+        if ($product->getDiscount()->value() > $product->getPrice()->value()) {
+            throw new \InvalidArgumentException('Discount cannot exceed price.');
         }
     }
 
-    public function validateDiscount(Product $product, float $discount): void
+    public function validateReview(Review $review, int $productId): void
     {
-        if ($discount > $product->getPrice()->value()) {
-            throw new InvalidArgumentException('Discount cannot exceed price');
+        if ($review->getProductId() !== $productId) {
+            throw new \InvalidArgumentException('Review does not belong to this product.');
+        }
+        if (empty($review->getUserName())) {
+            throw new \InvalidArgumentException('User name cannot be empty.');
         }
     }
 }

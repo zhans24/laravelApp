@@ -2,26 +2,34 @@
 
 namespace App\Providers;
 
-use App\Infrastructure\Repositories\ProductRepository;
-use App\Interfaces\ProductRepositoryInterface;
+use App\Domain\Repositories\CategoryRepositoryInterface;
+use App\Domain\Repositories\ProductRepositoryInterface;
+use App\Domain\Repositories\ReviewRepositoryInterface;
+use App\Infrastructure\Repository\CategoryRepository;
+use App\Infrastructure\Repository\ProductRepository;
+use App\Infrastructure\Repository\ReviewRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
+        $this->app->bind(
+            CategoryRepositoryInterface::class,
+            CategoryRepository::class
+        );
+
         $this->app->bind(
             ProductRepositoryInterface::class,
             ProductRepository::class
         );
+
+        $this->app->bind(
+            ReviewRepositoryInterface::class,
+            ReviewRepository::class
+        );
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //

@@ -10,7 +10,7 @@ class CategoryName
     public function __construct(string $value)
     {
         if (empty($value) or strlen($value) > 100) {
-            throw new InvalidArgumentException('Category name must be non-empty and less than 100 characters.');
+            throw new InvalidArgumentException('EloquentCategory name must be non-empty and less than 100 characters.');
         }
 
         $this->value=$value;
