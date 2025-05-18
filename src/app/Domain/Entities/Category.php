@@ -4,18 +4,15 @@ namespace App\Domain\Entities;
 
 use App\Domain\ValueObjects\CategoryName;
 
-
 class Category
 {
-    private int $id;
-    private CategoryName $name;
+    private ?int $id = null;
 
-    public function __construct(CategoryName $name)
-    {
-        $this->name = $name;
-    }
+    public function __construct(
+        private CategoryName $name
+    ) {}
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

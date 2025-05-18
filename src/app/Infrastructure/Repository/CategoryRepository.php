@@ -6,15 +6,15 @@ use App\Domain\Entities\Category;
 use App\Domain\Repositories\CategoryRepositoryInterface;
 use App\Domain\ValueObjects\CategoryName;
 use App\Infrastructure\Models\EloquentCategory;
-use App\Infrastructure\Models\EloquentProduct;
-use App\Models\Categories;
-
+use Illuminate\Support\Facades\Log;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
     public function save(Category $category): void
     {
-        if ($category->getId()) {
+        Log::debug('Saving category', ['name' => $category->getName()->value()]);
+
+        if ($category->getId() !== null) {
             $this->update($category);
         } else {
             $this->create($category);
@@ -50,7 +50,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function update(): void
     {
-        // TODO
+        // TODO: Implement if needed
     }
 
     public function delete(int $id): void
@@ -71,5 +71,6 @@ class CategoryRepository implements CategoryRepositoryInterface
         $eloquentCategory->save();
 
         $category->setId($eloquentCategory->id);
+        Log::debug('Category created', ['id' => $eloquentCategory->id, 'name' => $eloquentCategory->name]);
     }
 }

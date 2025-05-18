@@ -3,18 +3,22 @@
 namespace App\Application\DTO\Input;
 
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 
 class CreateCategoryInputDTO
 {
-    public string $name;
-
-    public function __construct(string $name)
-    {
-        $this->name = $name;
-    }
+    public function __construct(
+        public readonly string $name
+    ) {}
 
     public static function fromRequest(Request $request): self
     {
-        return new self($request->input('name'));
+        $name = $request->input('name');
+
+        if (empty($name) || strlen($name) > 100) {
+            throw new InvalidArgumentException('Category name must be non-empty and less than 100 characters.');
+        }
+
+        return new self($name);
     }
 }

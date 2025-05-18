@@ -27,17 +27,7 @@ class ProductRepository implements ProductRepositoryInterface
             return null;
         }
 
-        $product = new Product(
-            new ProductCode($eloquentProduct->code),
-            $eloquentProduct->name,
-            $eloquentProduct->description,
-            new Price($eloquentProduct->price),
-            new Price($eloquentProduct->discount),
-            $eloquentProduct->photo,
-            $eloquentProduct->category_id
-        );
-        $product->setId($eloquentProduct->id);
-        return $product;
+        return $this->toDomainEntity($eloquentProduct);
     }
 
     public function all(): array
@@ -46,17 +36,7 @@ class ProductRepository implements ProductRepositoryInterface
         $products = [];
 
         foreach ($eloquentProducts as $eloquentProduct) {
-            $product = new Product(
-                new ProductCode($eloquentProduct->code),
-                $eloquentProduct->name,
-                $eloquentProduct->description,
-                new Price($eloquentProduct->price),
-                new Price($eloquentProduct->discount),
-                $eloquentProduct->photo,
-                $eloquentProduct->category_id
-            );
-            $product->setId($eloquentProduct->id);
-            $products[] = $product;
+            $products[] = $this->toDomainEntity($eloquentProduct);
         }
 
         return $products;
@@ -70,7 +50,7 @@ class ProductRepository implements ProductRepositoryInterface
             throw new \Exception('Product not found');
         }
 
-        $this->toEntity($product, $eloquentProduct);
+        $this->toEloquent($product, $eloquentProduct);
     }
 
     public function delete(int $id): void
@@ -87,17 +67,12 @@ class ProductRepository implements ProductRepositoryInterface
     private function create(Product $product): void
     {
         $eloquentProduct = new EloquentProduct();
-        $this->toEntity($product, $eloquentProduct);
-
+        $this->toEloquent($product, $eloquentProduct);
+        $eloquentProduct->save();
         $product->setId($eloquentProduct->id);
     }
 
-    /**
-     * @param Product $product
-     * @param $eloquentProduct
-     * @return void
-     */
-    private function toEntity(Product $product, $eloquentProduct): void
+    private function toEloquent(Product $product, EloquentProduct $eloquentProduct): void
     {
         $eloquentProduct->code = $product->getCode()->value();
         $eloquentProduct->name = $product->getName();
@@ -106,10 +81,9 @@ class ProductRepository implements ProductRepositoryInterface
         $eloquentProduct->discount = $product->getDiscount()->value();
         $eloquentProduct->photo = $product->getPhoto();
         $eloquentProduct->category_id = $product->getCategoryId();
-        $eloquentProduct->save();
     }
 
-    public function findById(int $id) : ?Product
+    public function findById(int $id): ?Product
     {
         $eloquentProduct = EloquentProduct::find($id);
 
@@ -117,6 +91,11 @@ class ProductRepository implements ProductRepositoryInterface
             return null;
         }
 
+        return $this->toDomainEntity($eloquentProduct);
+    }
+
+    private function toDomainEntity(EloquentProduct $eloquentProduct): Product
+    {
         $product = new Product(
             new ProductCode($eloquentProduct->code),
             $eloquentProduct->name,

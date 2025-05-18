@@ -9,6 +9,8 @@ class EloquentReview extends Model
 {
     use HasFactory;
 
+    protected $table = 'reviews';
+
     protected $fillable = ['rating', 'text', 'user_name', 'product_id'];
 
     public function product()

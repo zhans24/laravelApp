@@ -2,31 +2,31 @@
 
 namespace App\Domain\Entities;
 
-use App\Domain\ValueObjects\ProductCode;
 use App\Domain\ValueObjects\Price;
+use App\Domain\ValueObjects\ProductCode;
 
 class Product
 {
-    private int $id;
+    private ?int $id = null;
 
     public function __construct(
         private ProductCode $code,
         private string $name,
         private ?string $description,
         private Price $price,
-        private Price $discount,
+        private ?Price $discount,
         private ?string $photo,
         private int $categoryId
     ) {}
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     public function getCode(): ProductCode

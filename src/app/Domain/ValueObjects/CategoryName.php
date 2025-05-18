@@ -7,16 +7,17 @@ use InvalidArgumentException;
 class CategoryName
 {
     private string $value;
+
     public function __construct(string $value)
     {
-        if (empty($value) or strlen($value) > 100) {
-            throw new InvalidArgumentException('EloquentCategory name must be non-empty and less than 100 characters.');
+        if (empty($value) || strlen($value) > 100) {
+            throw new InvalidArgumentException('Category name must be non-empty and less than 100 characters.');
         }
 
-        $this->value=$value;
+        $this->value = $value;
     }
 
-    public function value() : string
+    public function value(): string
     {
         return $this->value;
     }

@@ -10,7 +10,7 @@ use App\Domain\ValueObjects\Price;
 use App\Domain\ValueObjects\ProductCode;
 use App\Infrastructure\Repository\CategoryRepository;
 use App\Infrastructure\Repository\ProductRepository;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class CreateProductUseCase
 {
@@ -18,13 +18,13 @@ class CreateProductUseCase
         private ProductRepository $productRepository,
         private ProductDomainService $productDomainService,
         private CategoryRepository $categoryRepository,
-    ){}
+    ) {}
 
-    public function execute(CreateProductInputDTO $productInputDTO):ProductOutputDTO
+    public function execute(CreateProductInputDTO $productInputDTO): ProductOutputDTO
     {
-        if (!$this->categoryRepository->findById($productInputDTO->categoryId)){
+        if (!$this->categoryRepository->findById($productInputDTO->categoryId)) {
             throw new InvalidArgumentException("Category doesn't exist");
-        };
+        }
 
         $product = new Product(
             new ProductCode($productInputDTO->code),

@@ -6,22 +6,44 @@ use App\Domain\Entities\Review;
 
 class ReviewOutputDTO
 {
-    public function __construct(
-        public int $id,
-        public int $rating,
-        public string $text,
-        public string $userName,
-        public int $productId
-    ){}
+    public int $id;
+    public int $productId;
+    public string $userName;
+    public string $text;
+    public int $rating;
+    public string $createdAt;
+
+    public function __construct(int $id, int $productId, string $userName, string $text, int $rating, string $createdAt)
+    {
+        $this->id = $id;
+        $this->productId = $productId;
+        $this->userName = $userName;
+        $this->text = $text;
+        $this->rating = $rating;
+        $this->createdAt = $createdAt;
+    }
 
     public static function fromEntity(Review $review): self
     {
         return new self(
             $review->getId(),
-            $review->getRating()->value(),
-            $review->getText(),
+            $review->getProductId(),
             $review->getUserName(),
-            $review->getProductId()
+            $review->getText(),
+            $review->getRating()->value(),
+            $review->getCreatedAt()->format('Y-m-d H:i:s')
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'productId' => $this->productId,
+            'userName' => $this->userName,
+            'text' => $this->text,
+            'rating' => $this->rating,
+            'created_at' => $this->createdAt,
+        ];
     }
 }

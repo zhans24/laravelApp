@@ -41,16 +41,6 @@ class ProductWithReviewsOutputDTO
 
     public static function fromEntity(Product $product, array $reviews): self
     {
-        $reviewDTOs = array_map(
-            fn(Review $review) => [
-                'id' => $review->getId(),
-                'user_name' => $review->getUserName(),
-                'text' => $review->getText(),
-                'rating' => $review->getRating()->value(),
-            ],
-            $reviews
-        );
-
         return new self(
             $product->getId(),
             $product->getCode()->value(),
@@ -60,7 +50,22 @@ class ProductWithReviewsOutputDTO
             $product->getDiscount()->value(),
             $product->getPhoto(),
             $product->getCategoryId(),
-            $reviewDTOs
+            array_map(fn(Review $review) => ReviewOutputDTO::fromEntity($review)->toArray(), $reviews)
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'name' => $this->name,
+            'description' => $this->description,
+            'price' => $this->price,
+            'discount' => $this->discount,
+            'photo' => $this->photo,
+            'categoryId' => $this->categoryId,
+            'reviews' => $this->reviews,
+        ];
     }
 }

@@ -12,25 +12,23 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
+    public function register()
     {
         $this->app->bind(
             CategoryRepositoryInterface::class,
             CategoryRepository::class
         );
-
         $this->app->bind(
             ProductRepositoryInterface::class,
-            ProductRepository::class
+             ProductRepository::class
         );
-
         $this->app->bind(
             ReviewRepositoryInterface::class,
             ReviewRepository::class
         );
     }
 
-    public function boot(): void
+    public function boot()
     {
         //
     }
