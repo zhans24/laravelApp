@@ -4,10 +4,12 @@ namespace App\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class EloquentCategory extends Model
 {
     use HasFactory;
+    use AsSource;
 
     protected $table = 'categories';
 

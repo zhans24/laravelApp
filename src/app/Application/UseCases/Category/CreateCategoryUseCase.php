@@ -19,19 +19,13 @@ class CreateCategoryUseCase
     public function execute(CreateCategoryInputDTO $inputDTO): CategoryOutputDTO
     {
         try {
-            Log::info('Creating category', ['name' => $inputDTO->name]);
-
             $category = new Category(new CategoryName($inputDTO->name));
             $this->categoryRepository->save($category);
 
-            Log::info('Category created successfully', ['id' => $category->getId(), 'name' => $inputDTO->name]);
-
             return CategoryOutputDTO::fromEntity($category);
         } catch (InvalidArgumentException $e) {
-            Log::error('Failed to create category: Invalid argument', ['error' => $e->getMessage()]);
             throw $e;
         } catch (\Exception $e) {
-            Log::error('Failed to create category: Server error', ['error' => $e->getMessage()]);
             throw new \Exception('Failed to create category');
         }
     }

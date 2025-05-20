@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\Categories\CategoryListScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -12,6 +13,7 @@ use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Products\ProductListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -34,6 +36,9 @@ use Tabuna\Breadcrumbs\Trail;
 // Main
 Route::screen('/main', PlatformScreen::class)
     ->name('platform.main');
+
+Route::screen('products',ProductListScreen::class)->name('platform.products');
+Route::screen('categories',CategoryListScreen::class)->name('platform.categories');
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)

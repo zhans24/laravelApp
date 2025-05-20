@@ -22,8 +22,6 @@ class AddProductReviewUseCase
     public function execute(CreateProductReviewInputDTO $inputDTO): ReviewOutputDTO
     {
         try {
-            Log::info('Creating review for product', ['code' => $inputDTO->code, 'user_name' => $inputDTO->userName]);
-
             $product = $this->productRepository->findByCode(new ProductCode($inputDTO->code));
             if (!$product) {
                 throw new InvalidArgumentException('Product not found');
@@ -38,15 +36,10 @@ class AddProductReviewUseCase
 
             $this->reviewRepository->create($review);
 
-            Log::info('Review created successfully', ['product_id' => $product->getId(), 'user_name' => $inputDTO->userName]);
 
             return ReviewOutputDTO::fromEntity($review);
         } catch (InvalidArgumentException $e) {
-            Log::warning('Invalid review input', ['error' => $e->getMessage()]);
             throw $e;
-        } catch (\Exception $e) {
-            Log::error('Failed to create review', ['error' => $e->getMessage()]);
-            throw new \Exception('Failed to create review');
         }
     }
 }

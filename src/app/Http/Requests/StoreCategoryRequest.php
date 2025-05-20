@@ -18,12 +18,4 @@ class StoreCategoryRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'name.required' => 'Category name is required.',
-            'name.min' => 'Category name must be at least 1 character.',
-            'name.max' => 'Category name must not exceed 100 characters.',
-        ];
-    }
 }

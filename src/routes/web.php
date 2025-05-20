@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
     // Categories
-    Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
 
     // Products
@@ -15,3 +14,6 @@ Route::prefix('api')->group(function () {
     Route::get('/products/{code}', [ProductController::class, 'showWithReviews']);
     Route::post('/products/{code}/reviews', [ProductController::class, 'storeReview']);
 });
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/');
